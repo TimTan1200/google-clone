@@ -141,6 +141,8 @@ export default function Home() {
         window.location.href = 'https://duckduckgo.com/?q=' + prompt;
       } else if (engine == 'bing') {
         window.location.href = 'https://www.bing.com/search?q=' + prompt;
+      } else {
+        window.location.href = 'https://www.google.com/search?q=' + prompt;
       }
     }
   }
@@ -179,7 +181,7 @@ export default function Home() {
       <div className='w-screen h-screen absolute top-0 left-0 bg-cover z-0' style={{backgroundImage: "url('" + url + "')"}}></div>
       <div className='w-screen h-screen absolute top-0 left-0 z-20'>
         <div className='flex h-full'>
-          <div className='m-auto max-w-lg animate__animated animate__fadeIn'>
+          <div className='m-auto xl:max-w-xl 2xl:max-w-2xl max-w-lg animate__animated animate__fadeIn'>
             <form className='w-full' onSubmit={(e) => {e.preventDefault(), setSearch()}}>
               <input onChange={handleChange} value={input} type='text' style={{backgroundColor: searchColorO, color: stextColor}} className='w-[516px] rounded-lg p-2.5' placeholder='Search' />
             </form>
