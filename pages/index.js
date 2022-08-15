@@ -6,20 +6,29 @@ export default function Home() {
 
   // Global State
 
-  const [engine, setEngine] = useState(typeof window !== 'undefined' ? localStorage.getItem('engine') : "google");
-  const [bgColor, setbgColor] = useState(typeof window !== 'undefined' ? localStorage.getItem('bgColor') : "#ffffff");
-  const [textColor, settextColor] = useState(typeof window !== 'undefined' ? localStorage.getItem('textColor') : "#000000");
-  const [secondColor, setsecondColor] = useState(typeof window !== 'undefined'? localStorage.getItem('secondColor') : "#212121");
-  const [bottomOpacity, setbottomOpacity] = useState(typeof window !== 'undefined' ? localStorage.getItem('bottomOpacity') : "0.5");
+  const [engine, setEngine] = useState(typeof window !== 'undefined' ? (localStorage.getItem('engine') ? localStorage.getItem('engine') : "google") : "google");
+  const [bgColor, setbgColor] = useState(typeof window !== 'undefined' ? (localStorage.getItem('bgColor') ? localStorage.getItem('bgColor') : "#ffffff") : "#ffffff");
+  const [textColor, settextColor] = useState(typeof window !== 'undefined' ? (localStorage.getItem('textColor') ? localStorage.getItem('textColor') : "#000000") : "#000000");
+  const [secondColor, setsecondColor] = useState(typeof window !== 'undefined'? (localStorage.getItem('secondColor') ? localStorage.getItem('secondColor') : "#212121") : "#212121");
+  const [bottomOpacity, setbottomOpacity] = useState(typeof window !== 'undefined' ? (localStorage.getItem('bottomOpacity') ? localStorage.getItem('bottomOpacity') : "1") : "1");
   const [settings, toggleSettings] = useState(false);
   const [menu, toggleMenu] = useState(false);
   const [add, toggleAdd] = useState(false);
-  const [searchColor, setsearchColor] = useState(typeof window !== 'undefined' ? localStorage.getItem('searchColor') : "#ffffff");
-  const [stextColor, setstextColor] = useState(typeof window !== 'undefined' ? localStorage.getItem('stextColor') : "#000000");
-  const [searchOpacity, setsearchOpacity] = useState(typeof window !== 'undefined' ? localStorage.getItem('searchOpacity') : "0.8");
+  const [searchColor, setsearchColor] = useState(typeof window !== 'undefined' ? (localStorage.getItem('searchColor') ? localStorage.getItem('searchColor') : "#ffffff") : "#ffffff");
+  const [stextColor, setstextColor] = useState(typeof window !== 'undefined' ? (localStorage.getItem('stextColor') ? localStorage.getItem('stextColor') : "#000000") : "#000000");
+  const [searchOpacity, setsearchOpacity] = useState(typeof window !== 'undefined' ? (localStorage.getItem('searchOpacity') ? localStorage.getItem('searchOpacity') : "1") : "1");
   const [links, setlinks] = useState(typeof window !== 'undefined' ? (localStorage.getItem('links') ? JSON.parse(localStorage.getItem('links')) : []) : []);
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const [count, setCount] = useState(typeof window !== 'undefined' ? localStorage.getItem('count') : 0);
+
+  // Functions
+
+  function timer () {
+    setCount(count + 1);
+  }
+
+  setTimeout(timer, 1000);
 
   var bgColorO = "rgba(" + hexToRGB(bgColor)[0] + "," + hexToRGB(bgColor)[0] + "," + hexToRGB(bgColor)[0] + "," + bottomOpacity+ ")";
   var searchColorO = "rgba(" + hexToRGB(searchColor)[0] + "," + hexToRGB(searchColor)[0] + "," + hexToRGB(searchColor)[0] + "," + searchOpacity+ ")";
