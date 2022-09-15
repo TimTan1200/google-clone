@@ -239,7 +239,7 @@ export default function Home() {
 
       <div className='w-full h-full flex justify-center items-center'>
         <form className='max-w-lg w-full mx-auto mt-4 relative flex md:px-0 px-5' onSubmit={(e) => {e.preventDefault(), setSearch()}}>
-          <div className="flex absolute inset-y-0 left-0 items-center pl-8 pointer-events-none">
+          <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
           <input placeholder={'Search ' + engineWord()} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
