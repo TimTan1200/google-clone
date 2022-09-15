@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiTrash } from 'react-icons/fi';
+import { FiMenu, FiX, FiTrash, FiChevronUp } from 'react-icons/fi';
 import Card from '../components/Card'
 
 export default function Home() {
@@ -264,7 +264,12 @@ export default function Home() {
 
             {mode == 1 ? (
               <div className='h-full flex flex-col'>
-                <span className='text-right px-5 font-bold cursor-pointer pt-5 text-white' onClick={() => setManage(n => !n)}>Add Bookmarks</span>
+                <div className='flex text-white cursor-pointer items-center px-5 gap-3 justify-end py-2 hover:text-red-500 transition-all ease-in'>
+                  <div className={`${manage ? 'rotate-180' : 'rotate-0'}`}>
+                    <FiChevronUp fontSize={20} />
+                  </div>
+                  <span className='text-right font-bold' onClick={() => setManage(n => !n)}>Add Bookmark</span>
+                </div>
                 <div id="books" className={`space-y-2 w-full pr-2 p-5 pt-0 text-white flex flex-col justify-center items-center overflow-hidden ${manage ? "block animate__animated animate__slideInRight" : "hidden animate__animated animate__slideOutRight"}`}>
                   <div className='w-full'>
                     <p className='text-sm'>Title</p>
