@@ -192,6 +192,19 @@ export default function Home() {
     }
   }
       
+  function engineWord() {
+    if (engine == 1) {
+      return 'Google'
+    } else if (engine == 2) {
+      return 'Bing'
+    } else if (engine == 3) {
+      return 'DuckDuckGo'
+    } else if (engine == 4) {
+      return 'Ecosia'
+    } else {
+      return ''
+    }
+  }
 
   function setSearch() {
     var prompt = input;
@@ -208,7 +221,7 @@ export default function Home() {
     <div className='w-screen h-screen overflow-hidden relative bg-[#101010] bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
       <Head>
         <title>Googl by Tanvir Bhachu</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/search.png' />
       </Head>
 
       {/* Navbar */}
@@ -225,11 +238,11 @@ export default function Home() {
       {/* Search Bar */}
 
       <div className='w-full h-full flex justify-center items-center'>
-        <form className='max-w-lg w-full mx-auto mt-4 relative flex' onSubmit={(e) => {e.preventDefault(), setSearch()}}>
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <form className='max-w-lg w-full mx-auto mt-4 relative flex md:px-0 px-5' onSubmit={(e) => {e.preventDefault(), setSearch()}}>
+          <div className="flex absolute inset-y-0 left-0 items-center pl-8 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-          <input placeholder='Search' onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+          <input placeholder={'Search ' + engineWord()} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
         </form>
       </div>
 
