@@ -2,9 +2,21 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react';
 import { FiMenu, FiX, FiTrash, FiChevronUp, FiEyeOff, FiEye, FiStar } from 'react-icons/fi';
 import Card from '../components/Card'
-import { HuePicker, CompactPicker } from 'react-color';
+import { HuePicker, ChromePicker } from 'react-color';
+
+import {rgbaToHex} from 'hex-and-rgba/esm'
 
 export default function Home() {
+
+  const handleClick = (e) => {
+    if (displayPicker == 0) {
+      setDisplayPicker(e)
+    } else if (displayPicker == e) {
+      setDisplayPicker(0)
+    } else {
+      setDisplayPicker(e)
+    }
+  };
 
   const getFromStorage = (key) => {
     if(typeof window !== 'undefined'){
@@ -96,11 +108,13 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [group, setGroup] = useState('');
   const [menu, setMenu] = useState(false);
+  const [picker, setPicker] = useState(false);
   const [mode, setMode] = useState(1);
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
   const [links, setlinks] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [displayPicker, setDisplayPicker] = useState(0);
 
   useEffect(() => {
     getFromStorage('barBgColor') ? sBarBgColor(getFromStorage('barBgColor')) : 'transparent';
@@ -123,6 +137,11 @@ export default function Home() {
     if (menu) { document.getElementById('layer').style.display = 'block';
     } else { setTimeout(() => { document.getElementById('layer').style.display = 'none' }, 800) };
   }, [menu])
+
+  useEffect(() => {
+    if (picker) { document.getElementById('personal').style.display = 'block';
+    } else { setTimeout(() => { document.getElementById('personal').style.display = 'none' }, 800) };
+  }, [picker])
 
   useEffect(() => {
     if (manage) { document.getElementById('books').style.display = 'block';
@@ -405,132 +424,150 @@ export default function Home() {
                   <Card mode="engine" engine={engine} i={3} action={() => {setEngine(3); setToStorage('engine', 3)}} title="DuckDuckGo" />
                   <Card mode="engine" engine={engine} i={4} action={() => {setEngine(4); setToStorage('engine', 4)}} title="Ecosia" />
                 </div>
-                <div onClick={() => setCustom(n => !n)} className='flex text-white cursor-pointer mt-3 items-center px-5 gap-3 justify-end py-2 hover:text-red-500 transition-all ease-in'>
+                <div onClick={() => setPicker(true)} className='flex text-white cursor-pointer mt-3 items-center px-5 gap-3 justify-end py-2 hover:text-red-500 transition-all ease-in'>
                   <div className={`${custom ? 'rotate-180' : 'rotate-0'}`}>
                     <FiChevronUp fontSize={20} />
                   </div>
                   <span className='text-right font-bold'>Custom Theming</span>
                 </div>
-                {custom ? (
-                  <div className='flex flex-col space-y-5 animate__animated animate__slideInRight'>
-                  <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Custom Background Image</p>
-                      <input onChange={(e) => setBg(e.target.value)} value={bg} type='text' className='bg-black text-white w-full rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                    </div>
-                    <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Bar Background Color</p>
-                      <div className='flex items-center justify-between gap-2'>
-                        <input onChange={(e) => setBarBgColor(e.target.value)} value={barBgColor} type='text' className='bg-black text-white w-full rounded-full hidden text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                        <CompactPicker
-                            color={ barBgColor }
-                            onChange={ (color) => setBarBgColor(color.hex) }
-                        />
-                        <div onClick={() => setBarBgColor('transparent') } className='w-8 h-full m-5 flex-grow flex items-center justify-center aspect-square rounded-full border-2 border-neutral-600' style={{backgroundColor: barBgColor}}>
-                          {barBgColor === 'transparent' ? <FiEyeOff className='w-5 h-5 text-white' /> : <FiEye className='w-5 h-5 text-white' />}
-                        </div>
-                      </div>
-                      <div className='rounded-full mt-2'>
-                        <HuePicker
-                            color={ barBgColor }
-                            onChange={ (color) => setBarBgColor(color.hex) }
-                            width='100%'
-                            height='10px'
-                        />
-                      </div>
-                    </div>
-                    <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Bar Text Color</p>
-                      <div className='flex items-center justify-between gap-2'>
-                        <input onChange={(e) => setTextColor(e.target.value)} value={textColor} type='text' className='bg-black text-white w-full rounded-full hidden text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                        <CompactPicker
-                            color={ textColor }
-                            onChange={ (color) => setTextColor(color.hex) }
-                        />
-                        <div onClick={() => setTextColor('transparent') }  className='w-8 h-full m-5 flex-grow flex items-center justify-center aspect-square rounded-full border-2 border-neutral-600' style={{backgroundColor: textColor}}>
-                          {textColor === 'transparent' ? <FiEyeOff className='w-5 h-5 text-white' /> : <FiEye className='w-5 h-5 text-white' />}
-                        </div>
-                      </div>
-                      <div className='rounded-full mt-2'>
-                        <HuePicker
-                            color={ textColor }
-                            onChange={ (color) => setTextColor(color.hex) }
-                            width='100%'
-                            height='10px'
-                        />
-                      </div>
-                    </div>
-                    <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Search Background Color</p>
-                      <div className='flex items-center justify-between gap-2'>
-                        <input onChange={(e) => setSearchBgColor(e.target.value)} value={searchBgColor} type='text' className='bg-black text-white w-full hidden rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                        <CompactPicker
-                            color={ searchBgColor }
-                            onChange={ (color) => setSearchBgColor(color.hex) }
-                        />
-                        <div onClick={() => setSearchBgColor('transparent') }  className='w-8 h-full m-5 flex-grow flex items-center justify-center aspect-square rounded-full border-2 border-neutral-600' style={{backgroundColor: searchBgColor}}>
-                          {searchBgColor === 'transparent' ? <FiEyeOff className='w-5 h-5 text-white' /> : <FiEye className='w-5 h-5 text-white' />}
-                        </div>
-                      </div>
-                      <div className='rounded-full mt-2'>
-                        <HuePicker
-                            color={ searchBgColor }
-                            onChange={ (color) => setSearchBgColor(color.hex) }
-                            width='100%'
-                            height='10px'
-                        />
-                      </div>
-                    </div>
-                    <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Search Text Color</p>
-                      <div className='flex items-center justify-between gap-2'>
-                        <input onChange={(e) => setSearchTextColor(e.target.value)} value={searchTextColor} type='text' className='bg-black text-white w-full hidden rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                        <CompactPicker
-                            color={ searchTextColor }
-                            onChange={ (color) => setSearchTextColor(color.hex) }
-                        />
-                        <div onClick={() => setSearchTextColor('transparent') }  className='w-8 h-full m-5 flex-grow flex items-center justify-center aspect-square rounded-full border-2 border-neutral-600' style={{backgroundColor: searchTextColor}}>
-                          {searchTextColor  === 'transparent' ? <FiEyeOff className='w-5 h-5 text-white' /> : <FiEye className='w-5 h-5 text-white' />}
-                        </div>
-                      </div>
-                      <div className='rounded-full mt-2'>
-                        <HuePicker
-                            color={ searchTextColor }
-                            onChange={ (color) => setSearchTextColor(color.hex) }
-                            width='100%'
-                            height='10px'
-                        />
-                      </div>
-                    </div>
-                    <div className='w-full'>
-                      <p className='text-sm mb-1 mt-2'>Search Border Color</p>
-                      <div className='flex items-center justify-between gap-2'>
-                        <input onChange={(e) => setSearchBorderColor(e.target.value)} value={searchBorderColor} type='text' className='bg-black text-white w-full rounded-full hidden text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                        <CompactPicker
-                            color={ searchBorderColor }
-                            onChange={ (color) => setSearchBorderColor(color.hex) }
-                        />
-                        <div onClick={() => setSearchBorderColor('transparent') } className='w-8 h-full m-5 flex-grow flex items-center justify-center aspect-square rounded-full border-2 border-neutral-600' style={{backgroundColor: searchBorderColor}}>
-                          {searchBorderColor === 'transparent' ? <FiEyeOff className='w-5 h-5 text-white' /> : <FiEye className='w-5 h-5 text-white' />}
-                        </div>
-                      </div>
-                      <div className='rounded-full mt-2'>
-                        <HuePicker
-                            color={ searchBorderColor }
-                            onChange={ (color) => setSearchBorderColor(color.hex) }
-                            width='100%'
-                            height='10px'
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  null
-                )}
                 <div onClick={() => openURL('tanvirbhachu.dev')} className='flex text-white hover:text-violet-600 transition-all ease-in bg-[#212121] cursor-pointer rounded-xl mt-3 items-center px-5 gap-3 justify-center py-2'>
                   <span className='text-center font-bold'>by Tanvir Bhachu</span>
                 </div>
               </div>
             )}
+
+
+          </div>
+        </div>
+      </div>
+
+      {/* Personalisation */}
+
+      <div id="personal" className={`absolute top-0 left-0 right-0 bottom-0 w-full h-screen z-40 ${picker ? "block" : ""}`}>
+        <div className='relative w-full h-full'>
+          <div className={`bg-black/50 h-full flex w-1/2 p-5 ${picker ? "block animate__animated animate__fadeIn animate__delay-05s" : "animate__animated animate__fadeOut"}`} onClick={() => {setPicker(false); setDisplayPicker(0)}}>
+            <div className='relative h-3/4 w-3/4 hidden m-auto md:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
+              {/* Navbar */}
+
+              <div className='bg-black w-full flex items-center md:justify-between justify-end px-5 py-2 absolute left-0 top-0 z-10' style={{color: textColor, backgroundColor: barBgColor}}>
+                <div className='font-bold md:block hidden'>
+                  <span>{date}  |  {time}</span>
+                </div>
+                <div className='cursor-pointer'>
+                  <FiMenu size={30} />
+                </div>
+              </div>
+
+              {/* Search Bar */}
+
+              <div className='w-full h-full flex flex-col justify-center items-center'>
+                <div className='max-w-lg w-full mx-auto relative flex md:px-0 px-5'>
+                  <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </div>
+                  <input placeholder={'Search ' + engineWord()} disabled type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+                </div>
+                <div className='flex space-x-3 pt-3'>
+                  {renderFavourites()}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={`bg-[#101010] md:w-1/2 w-screen h-full absolute top-0 right-0 ${picker ? "block animate__animated animate__slideInRight animate__delay-05s" : "animate__animated animate__slideOutRight animate__fast"}`}>
+            
+            {/* Menu Header */}
+            
+            <div className='w-full flex items-center justify-between px-5 py-2 text-white'>
+              <div className='h-full flex-1 w-full cursor-pointer' onClick={() => setMode(2)}>
+                <span className="h-full text-xl font-bold">Custom Personalisation</span>
+              </div>
+              <div className='group cursor-pointer' onClick={() => {setPicker(false); setDisplayPicker(0)}}>
+                <div className='group-hover:rotate-90 transition-all ease-in duration-300'>
+                  <FiX size={30} />
+                </div>
+              </div>
+            </div>
+
+            <div className='h-full w-full flex flex-col px-5 pb-20 text-white overflow-y-scroll'>
+              <div className='flex flex-col space-y-5 animate__animated animate__slideInRight'>
+                <div className='w-full'>
+                  <p className='text-base font-bold mb-1 mt-2'>Background Image (URL)</p>
+                  <input onChange={(e) => setBg(e.target.value)} value={bg} type='text' className='bg-black text-white w-full rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
+                </div>
+                <div className='max-w-2xl mx-auto flex flex-col space-y-4'>
+                <div className='w-full relative'>
+                  <div className='flex space-x-4 items-center'>
+                    <p className='text-base mb-1 mt-2 font-bold'>Bar Background Color</p>
+                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(1)} style={{backgroundColor: barBgColor}}></div>
+                    {barBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setBarBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setBarBgColor('transparent')} />}
+                  </div>
+                  
+                  <div className={`${displayPicker == 1 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                    <ChromePicker
+                      color={ barBgColor }
+                      onChange={ (color) => {setBarBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                    />
+                  </div>
+                </div>
+                <div className='w-full relative'>
+                  <div className='flex space-x-4 items-center'>
+                    <p className='text-base mb-1 mt-2 font-bold'>Bar Text Color</p>
+                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(2)} style={{backgroundColor: textColor}}></div>
+                    {textColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setTextColor('transparent')} />}
+                  </div>
+                  
+                  <div className={`${displayPicker == 2 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                    <ChromePicker
+                      color={ textColor }
+                      onChange={ (color) => {setTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                    />
+                  </div>
+                </div>
+                <div className='w-full relative'>
+                  <div className='flex space-x-4 items-center'>
+                    <p className='text-base mb-1 mt-2 font-bold'>Search Background Color</p>
+                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(3)} style={{backgroundColor: searchBgColor}}></div>
+                    {searchBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBgColor('transparent')} />}
+                  </div>
+                  
+                  <div className={`${displayPicker == 3 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                    <ChromePicker
+                      color={ searchBgColor }
+                      onChange={ (color) => {setSearchBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                    />
+                  </div>
+                </div>
+                <div className='w-full relative'>
+                  <div className='flex space-x-4 items-center'>
+                    <p className='text-base mb-1 mt-2 font-bold'>Search Text Color</p>
+                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(4)} style={{backgroundColor: searchTextColor}}></div>
+                    {searchTextColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchTextColor('transparent')} />}
+                  </div>
+                  
+                  <div className={`${displayPicker == 4 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                    <ChromePicker
+                      color={ searchTextColor }
+                      onChange={ (color) => {setSearchTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                    />
+                  </div>
+                </div>
+                <div className='w-full relative'>
+                  <div className='flex space-x-4 items-center'>
+                    <p className='text-base mb-1 mt-2 font-bold'>Search Border Color</p>
+                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(5)} style={{backgroundColor: searchBorderColor}}></div>
+                    {searchBorderColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBorderColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBorderColor('transparent')} />}
+                  </div>
+                  
+                  <div className={`${displayPicker == 5 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                    <ChromePicker
+                      color={ searchBorderColor }
+                      onChange={ (color) => {setSearchBorderColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                    />
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
