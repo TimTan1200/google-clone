@@ -115,6 +115,7 @@ export default function Home() {
   const [links, setlinks] = useState([]);
   const [groups, setGroups] = useState([]);
   const [displayPicker, setDisplayPicker] = useState(0);
+  const [over, setOver] = useState(false);
 
   useEffect(() => {
     getFromStorage('barBgColor') ? sBarBgColor(getFromStorage('barBgColor')) : 'transparent';
@@ -159,6 +160,12 @@ export default function Home() {
   hr < 10 ? hr = '0' + hr : hr = hr;
   mn < 10 ? mn = '0' + mn : mn = mn;
   var time = hr + ':' + mn + ' ' + bl;
+
+  function removePicker() {
+    if (displayPicker != 0 && !over) {
+      setDisplayPicker(0);
+    }
+  }
 
   function month() {
     if (new Date().getMonth() == 0) { return 'January' }
@@ -473,7 +480,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className={`bg-[#101010] md:w-1/2 w-screen h-full absolute top-0 right-0 ${picker ? "block animate__animated animate__slideInRight animate__delay-05s" : "animate__animated animate__slideOutRight animate__fast"}`}>
+          <div onClick={() => removePicker()} className={`bg-[#101010] md:w-1/2 w-screen h-full absolute top-0 right-0 ${picker ? "block animate__animated animate__slideInRight animate__delay-05s" : "animate__animated animate__slideOutRight animate__fast"}`}>
             
             {/* Menu Header */}
             
@@ -502,7 +509,7 @@ export default function Home() {
                     {barBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setBarBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setBarBgColor('transparent')} />}
                   </div>
                   
-                  <div className={`${displayPicker == 1 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 1 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
                     <ChromePicker
                       color={ barBgColor }
                       onChange={ (color) => {setBarBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
@@ -516,7 +523,7 @@ export default function Home() {
                     {textColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setTextColor('transparent')} />}
                   </div>
                   
-                  <div className={`${displayPicker == 2 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)}  className={`${displayPicker == 2 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
                     <ChromePicker
                       color={ textColor }
                       onChange={ (color) => {setTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
@@ -530,7 +537,7 @@ export default function Home() {
                     {searchBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBgColor('transparent')} />}
                   </div>
                   
-                  <div className={`${displayPicker == 3 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 3 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
                     <ChromePicker
                       color={ searchBgColor }
                       onChange={ (color) => {setSearchBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
@@ -544,7 +551,7 @@ export default function Home() {
                     {searchTextColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchTextColor('transparent')} />}
                   </div>
                   
-                  <div className={`${displayPicker == 4 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 4 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
                     <ChromePicker
                       color={ searchTextColor }
                       onChange={ (color) => {setSearchTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
@@ -558,7 +565,7 @@ export default function Home() {
                     {searchBorderColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBorderColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBorderColor('transparent')} />}
                   </div>
                   
-                  <div className={`${displayPicker == 5 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 5 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
                     <ChromePicker
                       color={ searchBorderColor }
                       onChange={ (color) => {setSearchBorderColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
