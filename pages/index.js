@@ -443,7 +443,7 @@ export default function Home() {
 
       {/* Personalisation */}
 
-      <div id="personal" className={`absolute top-0 left-0 right-0 bottom-0 w-full h-screen z-40 ${picker ? "block" : ""}`}>
+      <div id="personal" className={`absolute top-0 left-0 right-0 bottom-0 w-full h-screen z-40 hidden ${picker ? "block" : ""}`}>
         <div className='relative w-full h-full'>
           <div className={`bg-black/50 h-full flex w-1/2 p-5 ${picker ? "block animate__animated animate__fadeIn animate__delay-05s" : "animate__animated animate__fadeOut"}`} onClick={() => {setPicker(false); setDisplayPicker(0)}}>
             <div className='relative h-3/4 w-3/4 hidden m-auto md:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
