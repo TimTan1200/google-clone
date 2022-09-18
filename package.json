@@ -14,7 +14,7 @@
     "@mui/material": "^5.10.5",
     "animate.css": "^4.1.1",
     "hex-and-rgba": "^2.0.0",
-    "next": "12.2.5",
+    "next": "12.3",
     "pretty-easy-hex-to-rgb": "^1.2.2",
     "react": "18.2.0",
     "react-color": "^2.19.3",

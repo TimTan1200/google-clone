@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react';
-import { FiMenu, FiX, FiTrash, FiChevronUp, FiEyeOff, FiEye, FiStar } from 'react-icons/fi';
+import { FiMenu, FiX, FiTrash, FiChevronUp, FiEyeOff, FiEye, FiStar, FiChevronDown, FiXSquare, FiCheckSquare } from 'react-icons/fi';
 import Card from '../components/Card'
 import { HuePicker, ChromePicker } from 'react-color';
 
@@ -47,6 +47,9 @@ export default function Home() {
       setSearchBgColor('#fff'); setToStorage('searchBgColor', '#fff'); 
       setSearchTextColor('#000'); setToStorage('searchTextColor', '#000');
       setSearchBorderColor('#ffffff'); setToStorage('searchBorderColor', '#ffffff');
+
+      setFavBgColor('#101010'); setToStorage('favBgColor', '#101010');
+      setFavColor('#fff'); setToStorage('favColor', '#fff');
     } else if (type == 2) {
       setBarBgColor('#101010'); setToStorage('barBgColor', '#101010');
       setTextColor('#ffffff'); setToStorage('textColor', '#ffffff');
@@ -54,6 +57,9 @@ export default function Home() {
       setSearchBgColor('#101010'); setToStorage('searchBgColor', '#101010'); 
       setSearchTextColor('#ffffff'); setToStorage('searchTextColor', '#ffffff');
       setSearchBorderColor('#101010'); setToStorage('searchBorderColor', '#101010');
+
+      setFavBgColor('#101010'); setToStorage('favBgColor', '#101010');
+      setFavColor('#FD1602'); setToStorage('favColor', '#FD1602');
     } else if (type == 3) {
       setBarBgColor('#101010'); setToStorage('barBgColor', '#101010');
       setSearchBgColor('#101010'); setToStorage('searchBgColor', '#101010');
@@ -61,6 +67,9 @@ export default function Home() {
       setBg("none"); setToStorage('bg', 'none');
       setSearchTextColor('#cecece'); setToStorage('searchTextColor', '#cecece');
       setSearchBorderColor('#ffffff'); setToStorage('searchBorderColor', '#ffffff');
+
+      setFavBgColor('#101010'); setToStorage('favBgColor', '#101010');
+      setFavColor('#cecece'); setToStorage('favColor', '#cecece');
     } else if (type == 4) {
       setBarBgColor('transparent'); setToStorage('barBgColor', 'transparent');
       setSearchBgColor('#ffffff'); setToStorage('searchBgColor', '#ffffff');
@@ -68,6 +77,9 @@ export default function Home() {
       setBg("https://images.unsplash.com/photo-1459695452562-46cc57bef5f6?ixlib=rb-1.2.1&fit=crop&w=2000&q=100"); setToStorage('bg', 'https://images.unsplash.com/photo-1459695452562-46cc57bef5f6?ixlib=rb-1.2.1&fit=crop&w=2000&q=100');
       setSearchTextColor('#212121'); setToStorage('searchTextColor', '#212121');
       setSearchBorderColor('#ffffff'); setToStorage('searchBorderColor', '#ffffff');
+
+      setFavColor('#101010'); setToStorage('favColor', '#101010');
+      setFavBgColor('#fff'); setToStorage('favBgColor', '#fff');
     } else if (type == 5) {
       setBarBgColor('transparent'); setToStorage('barBgColor', 'transparent');
       setSearchBgColor('#101010'); setToStorage('searchBgColor', '#101010');
@@ -75,13 +87,19 @@ export default function Home() {
       setBg("https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?ixlib=rb-1.2.1&fit=crop&w=2000&q=100"); setToStorage('bg', 'https://images.unsplash.com/photo-1597773150796-e5c14ebecbf5?ixlib=rb-1.2.1&fit=crop&w=2000&q=100');
       setSearchTextColor('#cecece'); setToStorage('searchTextColor', '#cecece');
       setSearchBorderColor('#ffffff'); setToStorage('searchBorderColor', '#ffffff');
+
+      setFavBgColor('#101010'); setToStorage('favBgColor', '#101010');
+      setFavColor('#fff'); setToStorage('favColor', '#fff');
     } else if (type == 6) {
       setBarBgColor('transparent'); setToStorage('barBgColor', 'transparent');
-      setSearchBgColor('#101010'); setToStorage('searchBgColor', '#101010');
+      setSearchBgColor('#000'); setToStorage('searchBgColor', '#000');
       setTextColor('#ffffff'); setToStorage('textColor', '#ffffff');
       setBg("https://images.unsplash.com/photo-1637422234670-392e0dc5bdc7?ixlib=rb-1.2.1&fit=crop&w=2000&q=100"); setToStorage('bg', 'https://images.unsplash.com/photo-1637422234670-392e0dc5bdc7?ixlib=rb-1.2.1&fit=crop&w=2000&q=100');
       setSearchTextColor('#B91C1C'); setToStorage('searchTextColor', '#B91C1C');
       setSearchBorderColor('#B91C1C'); setToStorage('searchBorderColor', '#B91C1C');
+
+      setFavBgColor('#101010'); setToStorage('favBgColor', '#101010');
+      setFavColor('#FD1602'); setToStorage('favColor', '#FD1602');
     }
   }
 
@@ -90,6 +108,11 @@ export default function Home() {
   function setSearchBgColor(color) { sSearchBgColor(color); setToStorage('searchBgColor', color);}
   function setSearchTextColor(color) { sSearchTextColor(color); setToStorage('searchTextColor', color);}
   function setSearchBorderColor(color) { sSearchBorderColor(color); setToStorage('searchBorderColor', color);}
+  function setShowDate(b) { sSetShowDate(b); setToStorage('showDate', b);}
+  function setShowTime(b) { sSetShowTime(b); setToStorage('showTime', b);}
+  function setShowPlaceholder(b) { sSetShowPlaceholder(b); setToStorage('showPlaceholder', b);}
+  function setFavColor(b) { sFavColor(b); setToStorage('favColor', b);}
+  function setFavBgColor(b) { sFavBgColor(b); setToStorage('favBgColor', b);}
 
   // Theme State
 
@@ -100,6 +123,11 @@ export default function Home() {
   const [searchTextColor, sSearchTextColor] = useState('#000');
   const [searchBorderColor, sSearchBorderColor] = useState('#ffffff');
   const [engine, setEngine] = useState(1);
+  const [showDate, sSetShowDate] = useState(true);
+  const [showTime, sSetShowTime] = useState(true);
+  const [showPlaceholder, sSetShowPlaceholder] = useState(true);
+  const [favColor, sFavColor] = useState('#ffffff');
+  const [favBgColor, sFavBgColor] = useState('#101010');
 
   // Function State
 
@@ -118,15 +146,25 @@ export default function Home() {
   const [over, setOver] = useState(false);
 
   useEffect(() => {
-    getFromStorage('barBgColor') ? sBarBgColor(getFromStorage('barBgColor')) : 'transparent';
-    getFromStorage('searchBorderColor') ? sSearchBorderColor(getFromStorage('searchBorderColor')) : '#fff';
-    getFromStorage('textColor') ? sTextColor(getFromStorage('textColor')) : '#fff';
-    getFromStorage('bg') ? setBg(getFromStorage('bg')) : "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1";
-    getFromStorage('searchBgColor') ? sSearchBgColor(getFromStorage('searchBgColor')) : '#fff';
-    getFromStorage('searchTextColor') ? sSearchTextColor(getFromStorage('searchTextColor')) : '#000';
+    const t = getFromStorage('showTime');
+    const d = getFromStorage('showDate');
+    const p = getFromStorage('showPlaceholder');
+    t ? (t == 'true' || t == true ? sSetShowTime(true) : sSetShowTime(false)) : sSetShowTime(true); 
+    d ? (d == 'true' || d == true ? sSetShowDate(true) : sSetShowDate(false)) : sSetShowDate(true); 
+    p ? (p == 'true' || p == true ? sSetShowPlaceholder(true) : sSetShowPlaceholder(false)) : sSetShowPlaceholder(true); 
+
+    getFromStorage('bg') ? setBg(getFromStorage('bg')) : setBg("https://images.unsplash.com/photo-1497436072909-60f360e1d4b1");
+
+    getFromStorage('favColor') ? sFavColor(getFromStorage('favColor')) : sFavColor('#fff');
+    getFromStorage('favBgColor') ? sFavBgColor(getFromStorage('favBgColor')) : sFavBgColor('#101010');
+    getFromStorage('barBgColor') ? sBarBgColor(getFromStorage('barBgColor')) : sBarBgColor('transparent');
+    getFromStorage('searchBorderColor') ? sSearchBorderColor(getFromStorage('searchBorderColor')) : sTextColor('#fff');
+    getFromStorage('searchBgColor') ? sSearchBgColor(getFromStorage('searchBgColor')) : sSearchBgColor('#fff');
+    getFromStorage('searchTextColor') ? sSearchTextColor(getFromStorage('searchTextColor')) : sSearchTextColor('#000');
     getFromStorage('links') ? setlinks(JSON.parse(getFromStorage('links'))) : setlinks([]);
-    getFromStorage('barBgColor') ? setBarBgColor(getFromStorage('barBgColor')) : 'transparent';
-    getFromStorage('engine') ? setEngine(getFromStorage('engine')) : 1;
+    getFromStorage('barBgColor') ? setBarBgColor(getFromStorage('barBgColor')) : setBarBgColor('transparent');
+    getFromStorage('engine') ? setEngine(getFromStorage('engine')) : setEngine(1);
+    getFromStorage('textColor') ? sTextColor(getFromStorage('textColor')) : sTextColor('#fff');
   }, [])
 
   const handleChange = event => {
@@ -161,12 +199,6 @@ export default function Home() {
   mn < 10 ? mn = '0' + mn : mn = mn;
   var time = hr + ':' + mn + ' ' + bl;
 
-  function removePicker() {
-    if (displayPicker != 0 && !over) {
-      setDisplayPicker(0);
-    }
-  }
-
   function month() {
     if (new Date().getMonth() == 0) { return 'January' }
     else if (new Date().getMonth() == 1) { return 'February' }
@@ -182,6 +214,12 @@ export default function Home() {
     else if (new Date().getMonth() == 11) { return 'December' }
   }
   var date = new Date().getDate() + ' ' + month() + ' ' + new Date().getFullYear();
+
+  function removePicker() {
+    if (displayPicker != 0 && !over) {
+      setDisplayPicker(0);
+    }
+  }
 
   function addLink() {
     if (group == '') {
@@ -224,8 +262,8 @@ export default function Home() {
     var favs = links.filter((link) => link.favourite == true);
     return favs.map((link) => {
       return (
-        <div className="hover:cursor-pointer hover:scale-105 hover:font-bold transition-all ease-in" key={link.name}>
-          <span onClick={() => openURL(link.link)} style={{color: textColor}} className='max-w-xs truncate'>{link.name}</span>
+        <div onClick={() => openURL(link.link)} style={{backgroundColor: favBgColor}} className="bg-black block cursor-pointer hover:font-bold rounded-full text-white hover:scale-105 font-medium text-sm px-5 py-2 md:py-1 w-fit transition-all ease-in" key={link.name}>
+          <span style={{color: favColor}} className='max-w-xs truncate'>{link.name}</span>
         </div>
       )
     })
@@ -330,8 +368,10 @@ export default function Home() {
       {/* Navbar */}
 
       <div className='bg-black w-full flex items-center md:justify-between justify-end px-5 py-2 absolute top-0 z-10' style={{color: textColor, backgroundColor: barBgColor}}>
-        <div className='font-bold md:block hidden'>
-          <span>{date}  |  {time}</span>
+        <div className='font-bold hidden md:flex gap-3'>
+          <span className={showDate ? 'block' : 'hidden'}>{date}</span>
+          <span className={showDate && showTime ? 'block' : 'hidden'}>|</span>
+          <span className={showTime ? 'block' : 'hidden'}>{time}</span>
         </div>
         <div className='cursor-pointer' onClick={() => setMenu(true)}>
           <FiMenu size={30} />
@@ -345,9 +385,9 @@ export default function Home() {
           <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-          <input placeholder={'Search ' + engineWord()} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+          <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
         </form>
-        <div className='flex space-x-3 pt-3'>
+        <div className='flex flex-wrap pt-3 px-5 max-w-lg w-full mx-auto justify-center items-center gap-2'>
           {renderFavourites()}
         </div>
       </div>
@@ -389,7 +429,7 @@ export default function Home() {
                   </div>
                   <span className='text-right font-bold'>Add Bookmark</span>
                 </div>
-                <div id="books" className={`space-y-2 w-full pr-2 p-5 pt-0 text-white flex flex-col justify-center items-center overflow-hidden ${manage ? "block animate__animated animate__slideInRight" : "hidden animate__animated animate__slideOutRight"}`}>
+                <div id="books" className={`space-y-2 w-full min-h-[250px] pr-2 p-5 pt-0 text-white flex flex-col justify-center items-center overflow-hidden ${manage ? "block animate__animated animate__slideInRight" : "hidden animate__animated animate__slideOutRight"}`}>
                   <div className='w-full'>
                     <p className='text-sm'>Title</p>
                     <input onChange={(e) => setName(e.target.value)} value={name} type='text' className='bg-black text-white w-full rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
@@ -442,8 +482,6 @@ export default function Home() {
                 </div>
               </div>
             )}
-
-
           </div>
         </div>
       </div>
@@ -451,14 +489,16 @@ export default function Home() {
       {/* Personalisation */}
 
       <div id="personal" className={`absolute top-0 left-0 right-0 bottom-0 w-full h-screen z-40 hidden ${picker ? "block" : ""}`}>
-        <div className='relative w-full h-full'>
-          <div className={`bg-black/50 h-full flex w-1/2 p-5 ${picker ? "block animate__animated animate__fadeIn animate__delay-05s" : "animate__animated animate__fadeOut"}`} onClick={() => {setPicker(false); setDisplayPicker(0)}}>
-            <div className='relative h-3/4 w-3/4 hidden m-auto md:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
+        <div className='relative w-full h-full flex'>
+          <div className={`bg-black/50 h-full flex flex-grow ${picker ? "block animate__animated animate__fadeIn animate__delay-05s" : "animate__animated animate__fadeOut"}`} onClick={() => {setPicker(false); setDisplayPicker(0)}}>
+            <div className='relative h-3/4 w-3/4 hidden m-auto lg:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
               {/* Navbar */}
 
               <div className='bg-black w-full flex items-center md:justify-between justify-end px-5 py-2 absolute left-0 top-0 z-10' style={{color: textColor, backgroundColor: barBgColor}}>
-                <div className='font-bold md:block hidden'>
-                  <span>{date}  |  {time}</span>
+                <div className='font-bold hidden md:flex gap-3'>
+                  <span className={showDate ? 'block' : 'hidden'}>{date}</span>
+                  <span className={showDate && showTime ? 'block' : 'hidden'}>|</span>
+                  <span className={showTime ? 'block' : 'hidden'}>{time}</span>
                 </div>
                 <div className='cursor-pointer'>
                   <FiMenu size={30} />
@@ -472,7 +512,7 @@ export default function Home() {
                   <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                   </div>
-                  <input placeholder={'Search ' + engineWord()} disabled type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+                  <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} disabled type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
                 </div>
                 <div className='flex space-x-3 pt-3'>
                   {renderFavourites()}
@@ -480,12 +520,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div onClick={() => removePicker()} className={`bg-[#101010] md:w-1/2 w-screen h-full absolute top-0 right-0 ${picker ? "block animate__animated animate__slideInRight animate__delay-05s" : "animate__animated animate__slideOutRight animate__fast"}`}>
+          <div onClick={() => removePicker()} className={`bg-[#101010] md:w-[400px] w-screen h-full ${picker ? "block animate__animated animate__slideInRight animate__delay-05s" : "animate__animated animate__slideOutRight animate__fast"}`}>
             
             {/* Menu Header */}
             
             <div className='w-full flex items-center justify-between px-5 py-2 text-white'>
-              <div className='h-full flex-1 w-full cursor-pointer' onClick={() => setMode(2)}>
+              <div className='h-full flex-1 w-full'>
                 <span className="h-full text-xl font-bold">Custom Personalisation</span>
               </div>
               <div className='group cursor-pointer' onClick={() => {setPicker(false); setDisplayPicker(0)}}>
@@ -496,82 +536,134 @@ export default function Home() {
             </div>
 
             <div className='h-full w-full flex flex-col px-5 pb-20 text-white overflow-y-scroll'>
-              <div className='flex flex-col space-y-5 animate__animated animate__slideInRight'>
-                <div className='w-full'>
-                  <p className='text-base font-bold mb-1 mt-2'>Background Image (URL)</p>
-                  <input onChange={(e) => setBg(e.target.value)} value={bg} type='text' className='bg-black text-white w-full rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
-                </div>
-                <div className='max-w-2xl mx-auto flex flex-col space-y-4'>
-                <div className='w-full relative'>
-                  <div className='flex space-x-4 items-center'>
-                    <p className='text-base mb-1 mt-2 font-bold'>Bar Background Color</p>
-                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(1)} style={{backgroundColor: barBgColor}}></div>
-                    {barBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setBarBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setBarBgColor('transparent')} />}
+              <div className='flex flex-col space-y-5 px-3 animate__animated animate__slideInRight'>
+                <div className='max-w-sm w-full mx-auto flex flex-col space-y-6 mt-5'>
+                  <div className='w-full relative'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold cursor-pointer' onClick={() => handleClick(100)}>Change Background Image</p>
+                      {displayPicker == 100 ? <FiChevronUp className='text-white' /> : <FiChevronDown className='text-white' />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`w-full ${displayPicker == 100 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <input onChange={(e) => setBg(e.target.value)} value={bg} type='text' className='bg-black text-white w-full rounded-full text-base p-1 px-4 border-2 border-neutral-600 transition ease-in focus:outline-none focus:border-red-500' placeholder='Name' />
+                    </div>
                   </div>
-                  
-                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 1 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
-                    <ChromePicker
-                      color={ barBgColor }
-                      onChange={ (color) => {setBarBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
-                    />
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Bar Background Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(1)} style={{backgroundColor: barBgColor}}></div>
+                      {barBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setBarBgColor('#fff')} /> : <FiEye className='text-white' onClick={() => setBarBgColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 1 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ barBgColor }
+                        onChange={ (color) => {setBarBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className='w-full relative'>
-                  <div className='flex space-x-4 items-center'>
-                    <p className='text-base mb-1 mt-2 font-bold'>Bar Text Color</p>
-                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(2)} style={{backgroundColor: textColor}}></div>
-                    {textColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setTextColor('transparent')} />}
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Bar Text Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(2)} style={{backgroundColor: textColor}}></div>
+                      {textColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setTextColor('#fff')} /> : <FiEye className='text-white' onClick={() => setTextColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)}  className={`${displayPicker == 2 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ textColor }
+                        onChange={ (color) => {setTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                  
-                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)}  className={`${displayPicker == 2 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
-                    <ChromePicker
-                      color={ textColor }
-                      onChange={ (color) => {setTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
-                    />
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Search Background Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(3)} style={{backgroundColor: searchBgColor}}></div>
+                      {searchBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBgColor('#fff')} /> : <FiEye className='text-white' onClick={() => setSearchBgColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 3 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ searchBgColor }
+                        onChange={ (color) => {setSearchBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className='w-full relative'>
-                  <div className='flex space-x-4 items-center'>
-                    <p className='text-base mb-1 mt-2 font-bold'>Search Background Color</p>
-                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(3)} style={{backgroundColor: searchBgColor}}></div>
-                    {searchBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBgColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBgColor('transparent')} />}
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Search Text Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(4)} style={{backgroundColor: searchTextColor}}></div>
+                      {searchTextColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchTextColor('#fff')} /> : <FiEye className='text-white' onClick={() => setSearchTextColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 4 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ searchTextColor }
+                        onChange={ (color) => {setSearchTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                  
-                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 3 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
-                    <ChromePicker
-                      color={ searchBgColor }
-                      onChange={ (color) => {setSearchBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
-                    />
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Search Border Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(5)} style={{backgroundColor: searchBorderColor}}></div>
+                      {searchBorderColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBorderColor('#fff')} /> : <FiEye className='text-white' onClick={() => setSearchBorderColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 5 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ searchBorderColor }
+                        onChange={ (color) => {setSearchBorderColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className='w-full relative'>
-                  <div className='flex space-x-4 items-center'>
-                    <p className='text-base mb-1 mt-2 font-bold'>Search Text Color</p>
-                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(4)} style={{backgroundColor: searchTextColor}}></div>
-                    {searchTextColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchTextColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchTextColor('transparent')} />}
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Favourites Text Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(6)} style={{backgroundColor: favColor}}></div>
+                      {favColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setFavColor('#fff')} /> : <FiEye className='text-white' onClick={() => setFavColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 6 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ favColor }
+                        onChange={ (color) => {setFavColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a));} }
+                      />
+                    </div>
                   </div>
-                  
-                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 4 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
-                    <ChromePicker
-                      color={ searchTextColor }
-                      onChange={ (color) => {setSearchTextColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
-                    />
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold'>Favourites Background Colour</p>
+                      <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(7)} style={{backgroundColor: favBgColor}}></div>
+                      {favBgColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setFavBgColor('#fff')} /> : <FiEye className='text-white' onClick={() => setFavBgColor('transparent')} />}
+                    </div>
+                    
+                    <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 7 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
+                      <ChromePicker
+                        color={ favBgColor }
+                        onChange={ (color) => {setFavBgColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className='w-full relative'>
-                  <div className='flex space-x-4 items-center'>
-                    <p className='text-base mb-1 mt-2 font-bold'>Search Border Color</p>
-                    <div className='border-[3px] border-white p-3 w-fit aspect-video rounded-lg' onClick={() => handleClick(5)} style={{backgroundColor: searchBorderColor}}></div>
-                    {searchBorderColor == 'transparent' ? <FiEyeOff className='text-white' onClick={() => setSearchBorderColor('#fff')} /> : <FiEye className='w-5 h-5 text-white' onClick={() => setSearchBorderColor('transparent')} />}
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold cursor-pointer'>Hide Date</p>
+                      {showDate ? <FiXSquare className='text-white' onClick={() => setShowDate(false)} /> : <FiCheckSquare className='text-white' onClick={() => setShowDate(true)} />}
+                    </div>
                   </div>
-                  
-                  <div onMouseOver={() => setOver(true)} onMouseLeave={() => setOver(false)} className={`${displayPicker == 5 ? 'absolute top-9 left-0 block z-50' : 'hidden'}`}>
-                    <ChromePicker
-                      color={ searchBorderColor }
-                      onChange={ (color) => {setSearchBorderColor(rgbaToHex(color.rgb.r, color.rgb.g, color.rgb.b, color.rgb.a)); console.log(color)} }
-                    />
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold cursor-pointer'>Hide Time</p>
+                      {showTime ? <FiXSquare className='text-white' onClick={() => setShowTime(false)} /> : <FiCheckSquare className='text-white' onClick={() => setShowTime(true)} />}
+                    </div>
                   </div>
-                </div>
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold cursor-pointer'>Hide Search placeholder</p>
+                      {showPlaceholder ? <FiXSquare className='text-white' onClick={() => setShowPlaceholder(false)} /> : <FiCheckSquare className='text-white' onClick={() => setShowPlaceholder(true)} />}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
