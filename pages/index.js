@@ -495,7 +495,7 @@ export default function Home() {
       <div id="personal" className={`absolute top-0 left-0 right-0 bottom-0 w-full h-screen z-40 hidden ${picker ? "block" : ""}`}>
         <div className='relative w-full h-full flex'>
           <div className={`bg-black/50 h-full flex flex-grow ${picker ? "block animate__animated animate__fadeIn animate__delay-05s" : "animate__animated animate__fadeOut"}`} onClick={() => {setPicker(false); setDisplayPicker(0)}}>
-            <div className='relative h-3/4 w-3/4 hidden m-auto lg:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
+            <div className='relative h-3/4 w-3/4 bg-black hidden m-auto lg:flex flex-col border-2 border-white rounded-xl overflow-hidden bg-cover bg-center' style={{backgroundImage: 'url("' + bg + '")'}}>
               {/* Navbar */}
 
               <div className='bg-black w-full flex items-center md:justify-between justify-end px-5 py-2 absolute left-0 top-0 z-10' style={{color: textColor, backgroundColor: barBgColor}}>
