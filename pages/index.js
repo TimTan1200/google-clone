@@ -111,6 +111,7 @@ export default function Home() {
   function setShowDate(b) { sSetShowDate(b); setToStorage('showDate', b);}
   function setShowTime(b) { sSetShowTime(b); setToStorage('showTime', b);}
   function setShowPlaceholder(b) { sSetShowPlaceholder(b); setToStorage('showPlaceholder', b);}
+  function setShowIcon(b) { sSetShowIcon(b); setToStorage('showIcon', b);}
   function setFavColor(b) { sFavColor(b); setToStorage('favColor', b);}
   function setFavBgColor(b) { sFavBgColor(b); setToStorage('favBgColor', b);}
 
@@ -126,6 +127,7 @@ export default function Home() {
   const [showDate, sSetShowDate] = useState(true);
   const [showTime, sSetShowTime] = useState(true);
   const [showPlaceholder, sSetShowPlaceholder] = useState(true);
+  const [showIcon, sSetShowIcon] = useState(true);
   const [favColor, sFavColor] = useState('#ffffff');
   const [favBgColor, sFavBgColor] = useState('#101010');
 
@@ -149,9 +151,11 @@ export default function Home() {
     const t = getFromStorage('showTime');
     const d = getFromStorage('showDate');
     const p = getFromStorage('showPlaceholder');
+    const i = getFromStorage('showIcon');
     t ? (t == 'true' || t == true ? sSetShowTime(true) : sSetShowTime(false)) : sSetShowTime(true); 
     d ? (d == 'true' || d == true ? sSetShowDate(true) : sSetShowDate(false)) : sSetShowDate(true); 
     p ? (p == 'true' || p == true ? sSetShowPlaceholder(true) : sSetShowPlaceholder(false)) : sSetShowPlaceholder(true); 
+    i ? (i == 'true' || i == true ? sSetShowIcon(true) : sSetShowIcon(false)) : sSetShowIcon(true); 
 
     getFromStorage('bg') ? setBg(getFromStorage('bg')) : setBg("https://images.unsplash.com/photo-1497436072909-60f360e1d4b1");
 
@@ -382,10 +386,10 @@ export default function Home() {
 
       <div className='w-full h-full flex flex-col justify-center items-center'>
         <form className='max-w-lg w-full mx-auto mt-4 relative flex md:px-0 px-5' onSubmit={(e) => {e.preventDefault(), setSearch()}}>
-          <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
+          <div className={`flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none ${showIcon ? '' : 'hidden'}`}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
-          <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+          <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} onChange={handleChange} value={input} type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className={`w-full rounded-full p-2.5 ${showIcon ? 'pl-10' : 'pl-4'} border-2 focus:border-gray-700 outline-none transition-all ease-in`} />
         </form>
         <div className='flex flex-wrap pt-3 px-5 max-w-lg w-full mx-auto justify-center items-center gap-2'>
           {renderFavourites()}
@@ -509,10 +513,11 @@ export default function Home() {
 
               <div className='w-full h-full flex flex-col justify-center items-center'>
                 <div className='max-w-lg w-full mx-auto relative flex md:px-0 px-5'>
-                  <div className="flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none">
+                  <div className={`flex absolute inset-y-0 left-0 items-center md:pl-3 pl-8 pointer-events-none ${showIcon ? '' : 'hidden'}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style={{color: searchTextColor}} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                   </div>
-                  <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} disabled type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} className='w-full rounded-full p-2.5 pl-10 border-2 focus:border-gray-700 outline-none transition-all ease-in' />
+                  <input placeholder={showPlaceholder ? ('Search ' + engineWord()) : ''} disabled type='text' style={{backgroundColor: searchBgColor, color: searchTextColor, borderColor: searchBorderColor}} 
+                  className={`w-full rounded-full p-2.5 ${showIcon ? 'pl-10' : 'pl-4'} border-2 focus:border-gray-700 outline-none transition-all ease-in`} />
                 </div>
                 <div className='flex space-x-3 pt-3'>
                   {renderFavourites()}
@@ -662,6 +667,12 @@ export default function Home() {
                     <div className='flex space-x-4 items-center'>
                       <p className='text-base font-bold cursor-pointer'>Hide Search placeholder</p>
                       {showPlaceholder ? <FiXSquare className='text-white' onClick={() => setShowPlaceholder(false)} /> : <FiCheckSquare className='text-white' onClick={() => setShowPlaceholder(true)} />}
+                    </div>
+                  </div>
+                  <div className='w-full relative select-none'>
+                    <div className='flex space-x-4 items-center'>
+                      <p className='text-base font-bold cursor-pointer'>Hide Search Icon</p>
+                      {showIcon ? <FiXSquare className='text-white' onClick={() => setShowIcon(false)} /> : <FiCheckSquare className='text-white' onClick={() => setShowIcon(true)} />}
                     </div>
                   </div>
                 </div>
